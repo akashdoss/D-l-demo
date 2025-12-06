@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D' Lakshmi Bakery - Fresh Baked Delights</title>
+    <style>
+        /* ============================================
+           CSS Reset & Base Styles
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Color Palette - Warm Bakery Theme */
+            --primary-color: #8B4513; /* Saddle Brown */
+            --secondary-color: #D2691E; /* Chocolate */
+            --accent-color: #FFB347; /* Light Orange/Apricot */
+            --bg-light: #FFF8F0; /* Off-White/Very Light Cream */
+            --bg-cream: #F5E6D3; /* Cream/Beige */
+            --text-dark: #2C1810; /* Dark Brown */
+            --text-medium: #5C3A21; /* Medium Brown */
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-hover: rgba(0, 0, 0, 0.15);
+            
+            /* Typography */
+            --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            --font-heading: Georgia, 'Times New Roman', serif;
+            
+            /* Spacing */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+            
+            /* Transitions */
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Image loading animation */
+        img[loading="lazy"] {
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           Container & Layout
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        section {
+            padding: var(--spacing-xl) 0;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            margin: var(--spacing-sm) auto;
+        }
+
+        /* ============================================
+           Navigation
+           ============================================ */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: var(--spacing-sm) 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand h1 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: var(--spacing-md);
+        }
+
+        .nav-link {
+            color: var(--text-medium);
+            font-weight: 500;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+            background: var(--bg-cream);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            gap: 4px;
+            padding: var(--spacing-xs);
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        /* ============================================
+           Hero Section
+           ============================================ */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-cream) 0%, var(--accent-color) 100%);
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: var(--spacing-xl) var(--spacing-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(139,69,19,0.1)"/></svg>');
+            opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--text-medium);
+            margin-bottom: var(--spacing-md);
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-hover);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+            color: var(--text-dark);
+            border: 2px solid var(--primary-color);
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-hover);
+        }
+
+        /* ============================================
+           About Section (Simplified CSS)
+           ============================================ */
+        .about {
+            background: var(--white);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            /* Reduced margin since info-item grid is removed */
+            margin-bottom: var(--spacing-sm); 
+            line-height: 1.8;
+        }
+
+        /* Removed .about-info and related styles */
+
+        .contact-numbers {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center; 
+        }
+        
+        .contact-numbers a {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--secondary-color);
+        }
+        .contact-numbers a:hover {
+            color: var(--primary-color);
+        }
+
+        /* ============================================
+           Menu Section
+           ============================================ */
+        .menu {
+            background: var(--bg-light);
+        }
+
+        .menu-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .filter-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--white);
+            border: 2px solid var(--bg-cream);
+            border-radius: 20px;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .menu-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .category-card {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--shadow-hover);
+            border-color: var(--accent-color);
+            background: linear-gradient(135deg, var(--white) 0%, var(--bg-cream) 100%);
+        }
+
+        .category-card h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-xs);
+            font-size: 1.2rem;
+        }
+
+        .item-count {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .menu-item {
+            background: var(--white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+            border: 1px solid transparent;
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .menu-item:nth-child(2) { animation-delay: 0.2s; }
+        .menu-item:nth-child(3) { animation-delay: 0.3s; }
+        .menu-item:nth-child(4) { animation-delay: 0.4s; }
+        .menu-item:nth-child(5) { animation-delay: 0.5s; }
+        .menu-item:nth-child(n+6) { animation-delay: 0.6s; }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .menu-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px var(--shadow-hover);
+            border-color: var(--accent-color);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: var(--bg-cream);
+            transition: var(--transition);
+        }
+
+        .menu-item:hover .menu-item-image {
+            transform: scale(1.05);
+        }
+
+        .menu-item-content {
+            padding: var(--spacing-sm);
+        }
+
+        .menu-item-name {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: var(--spacing-xs);
+            font-weight: 600;
+        }
+
+        .menu-item-price {
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .menu-item-description {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+            margin-top: var(--spacing-xs);
+        }
+
+        /* ============================================
+           Gallery Section
+           ============================================ */
+        .gallery {
+            background: var(--white);
+        }
+
+        .gallery-filter {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .gallery-filter-btn {
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--white);
+            border: 2px solid var(--bg-cream);
+            border-radius: 20px;
+            color: var(--text-medium);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .gallery-filter-btn:hover,
+        .gallery-filter-btn.active {
+            background: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            aspect-ratio: 1;
+            background: var(--bg-cream);
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(n+7) { animation-delay: 0.4s; }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.15);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        /* ============================================
+           Lightbox Modal
+           ============================================ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--white);
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent-color);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: var(--white);
+            font-size: 3rem;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: var(--transition);
+            pointer-events: all;
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* ============================================
+           Contact Section
+           ============================================ */
+        .contact {
+            background: var(--bg-light);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-md);
+        }
+
+        .contact-item {
+            background: var(--white);
+            padding: var(--spacing-md);
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px var(--shadow);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px var(--shadow-hover);
+        }
+
+        .contact-item h3 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.3rem;
+        }
+
+        .contact-item p {
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+        
+        /* ============================================
+           Footer
+           ============================================ */
+        .footer {
+            background: var(--primary-color);
+            color: var(--white);
+            text-align: center;
+            padding: var(--spacing-md) 0;
+        }
+
+        /* ============================================
+           Responsive Design
+           ============================================ */
+        @media (max-width: 768px) {
+            :root {
+                --spacing-xl: 2rem;
+                --spacing-lg: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+            
+            .mobile-menu-toggle {
+                display: flex;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                padding: var(--spacing-md);
+                box-shadow: 0 5px 10px var(--shadow);
+                transition: var(--transition);
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            /* Ensure buttons stack neatly on mobile */
+            .btn-group {
+                flex-direction: column;
+                gap: var(--spacing-xs);
+            }
+
+            .menu-filter,
+            .gallery-filter {
+                gap: var(--spacing-xs);
+            }
+            
+            .filter-btn,
+            .gallery-filter-btn {
+                font-size: 0.85rem;
+                padding: 0.4rem 0.8rem;
+            }
+            
+            .menu-categories {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: var(--spacing-sm);
+            }
+            
+            .menu-items,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .lightbox-prev,
+            .lightbox-next {
+                font-size: 2rem;
+                padding: 5px 15px;
+            }
+
+            /* Adjust contact info layout on mobile for stacking */
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-tagline {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .menu-categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>D' Lakshmi Bakery</h1>
+            </div>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#menu" class="nav-link">Menu</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">D' Lakshmi Bakery</h1>
+            <p class="hero-tagline">Fresh Baked Delights, Made with Love</p>
+            <div class="btn-group">
+                <a href="#menu" class="btn btn-primary">Explore Our Menu</a>
+                <a href="https://www.zomato.com/kovilpatti/d-lakshmi-bakery-kovilpatti-locality/order" target="_blank" class="btn btn-secondary">Order on Zomato</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2 class="section-title">Our Menu</h2>
+            <div class="menu-filter">
+                <button class="filter-btn active" data-category="all">All Items</button>
+                <button class="filter-btn" data-category="hot-snacks">Hot Snacks</button>
+                <button class="filter-btn" data-category="creamy-buns">Creamy Buns</button>
+                <button class="filter-btn" data-category="desserts">Desserts</button>
+                <button class="filter-btn" data-category="brownies">Brownies</button>
+                <button class="filter-btn" data-category="breads">Breads</button>
+                <button class="filter-btn" data-category="pastries">Pastries</button>
+                <button class="filter-btn" data-category="drinks">Drinks</button>
+                <button class="filter-btn" data-category="piece-cakes">Piece Cakes</button>
+                <button class="filter-btn" data-category="sweets">Sweets</button>
+                <button class="filter-btn" data-category="cakes">Cakes</button>
+            </div>
+            
+            <div class="menu-categories">
+                <div class="category-card" data-category="hot-snacks">
+                    <h3>Hot Snacks</h3>
+                    <p class="item-count" data-count-for="hot-snacks">3 items</p>
+                </div>
+                <div class="category-card" data-category="creamy-buns">
+                    <h3>Creamy Buns</h3>
+                    <p class="item-count" data-count-for="creamy-buns">3 items</p>
+                </div>
+                <div class="category-card" data-category="desserts">
+                    <h3>Desserts</h3>
+                    <p class="item-count" data-count-for="desserts">6 items</p>
+                </div>
+                <div class="category-card" data-category="brownies">
+                    <h3>Brownies</h3>
+                    <p class="item-count" data-count-for="brownies">1 item</p>
+                </div>
+                <div class="category-card" data-category="breads">
+                    <h3>Breads</h3>
+                    <p class="item-count" data-count-for="breads">1 item</p>
+                </div>
+                <div class="category-card" data-category="pastries">
+                    <h3>Pastries</h3>
+                    <p class="item-count" data-count-for="pastries">5 items</p>
+                </div>
+                <div class="category-card" data-category="drinks">
+                    <h3>Drinks (Beverages)</h3>
+                    <p class="item-count" data-count-for="drinks">2 items</p>
+                </div>
+                <div class="category-card" data-category="piece-cakes">
+                    <h3>Piece Cakes</h3>
+                    <p class="item-count" data-count-for="piece-cakes">1 item</p>
+                </div>
+                <div class="category-card" data-category="sweets">
+                    <h3>Sweets</h3>
+                    <p class="item-count" data-count-for="sweets">1 item</p>
+                </div>
+                <div class="category-card" data-category="cakes">
+                    <h3>Cakes</h3>
+                    <p class="item-count" data-count-for="cakes">9 items</p>
+                </div>
+            </div>
+
+            <div class="menu-items" id="menuItems">
+                </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <h2 class="section-title">Gallery</h2>
+            <div class="gallery-filter">
+                <button class="gallery-filter-btn active" data-filter="all">All</button>
+                <button class="gallery-filter-btn" data-filter="hot-snacks">Hot Snacks</button>
+                <button class="gallery-filter-btn" data-filter="creamy-buns">Creamy Buns</button>
+                <button class="gallery-filter-btn" data-filter="desserts">Desserts</button>
+                <button class="gallery-filter-btn" data-filter="brownies">Brownies</button>
+                <button class="gallery-filter-btn" data-filter="breads">Breads</button>
+                <button class="gallery-filter-btn" data-filter="pastries">Pastries</button>
+                <button class="gallery-filter-btn" data-filter="drinks">Drinks</button>
+                <button class="gallery-filter-btn" data-filter="piece-cakes">Piece Cakes</button>
+                <button class="gallery-filter-btn" data-filter="sweets">Sweets</button>
+                <button class="gallery-filter-btn" data-filter="cakes">Cakes</button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                </div>
+        </div>
+    </section>
+    
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="about-content">
+                <p class="about-text">
+                    Welcome to D' Lakshmi Bakery, your neighborhood bakery serving fresh, 
+                    delicious baked goods in Kovilpatti. We take pride in crafting 
+                    traditional and modern treats that bring joy to every occasion.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">×</span>
+        <img class="lightbox-image" id="lightboxImage" src="" alt="">
+        <div class="lightbox-nav">
+            <button class="lightbox-prev">‹</button>
+            <button class="lightbox-next">›</button>
+        </div>
+    </div>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>Address</h3>
+                        <p>26-A1, Ettayapuram Road<br>Kovilpatti Locality<br>Kovilpatti</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Phone</h3>
+                        <div class="contact-numbers">
+                            <a href="tel:+917598115577">+91 75981 15577</a>
+                            <a href="tel:+917871355777">+91 78713 55777</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Delivery</h3>
+                        <p>Find us on Zomato for delivery!</p>
+                        <a href="https://www.zomato.com/kovilpatti/d-lakshmi-bakery-kovilpatti-locality/order" target="_blank" class="btn btn-secondary" style="padding: 10px 15px; font-size: 0.9rem; margin-top: 10px;">Order on Zomato</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 D' Lakshmi Bakery. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // Menu Data Structure
+        // ============================================
+        const menuData = {
+            'hot-snacks': [],
+            'creamy-buns': [],
+            'desserts': [],
+            'brownies': [],
+            'breads': [],
+            'pastries': [],
+            'drinks': [],
+            'piece-cakes': [],
+            'sweets': [],
+            'cakes': []
+        };
+
+        // Function to add menu items
+        function addMenuItem(category, name, price, description = '', image = '') {
+            if (menuData[category]) {
+                menuData[category].push({
+                    name,
+                    price,
+                    description,
+                    image
+                });
+            }
+        }
+        
+        // Function to dynamically update item counts in category cards
+        function updateCategoryCounts() {
+            const categoryCountElements = document.querySelectorAll('.item-count');
+            categoryCountElements.forEach(element => {
+                const category = element.dataset.countFor;
+                const count = menuData[category] ? menuData[category].length : 0;
+                element.textContent = `${count} item${count !== 1 ? 's' : ''}`;
+            });
+        }
+
+        // ============================================
+        // Initialize All Menu Items
+        // ============================================
+        function initializeMenuItems() {
+            // CAKES (9 items)
+            addMenuItem('cakes', 'Black Forest Cake', 650, 'Moist chocolate sponge, luscious whipped cream, topping of ripe cherries and elegant chocolate', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'White Forest Cake', 650, 'Elevate any celebration with our luxurious White Forest cake, a true masterpiece in vanilla and white chocolate', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Blueberry Gateau Cake', 700, 'Moist layers infused with blueberry fillings and topped with a smooth, creamy frosting', 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Blackcurrant Burst Cake', 680, 'Add a unique flavor to any celebration with our tingling black currant cakes', 'https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Strawberry Delight Cake', 650, 'Delightful fusion of sweetness and the vibrant freshness of strawberry filling', 'https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Pineapple Gateaux Cake', 620, 'Enjoy the soothing taste of Pineapple flavour as it blends perfectly with our moist cake', 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Mixed Berry Fantasy Cake', 720, 'Enjoy this moist cake generously with a medley of blueberry, strawberry, and raspberry', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Red Velvet and Cheese Cake', 750, 'Feast on our yummy Red Velvet cake made from delicious cream cheese and rich red velvet layers', 'https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=600&h=400&fit=crop');
+            addMenuItem('cakes', 'Butterscotch Cake', 600, 'An old favourite, loved by all. Spongy cake layered with butterscotch-soaked cream and caramel', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+
+            // HOT SNACKS (3 items)
+            addMenuItem('hot-snacks', 'Puff Egg Keema', 45, 'Crispy, crunchy, flaky, soft in the middle and a bite full of tasty egg keema', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop');
+            addMenuItem('hot-snacks', 'Pizza Puff Chicken Curry', 55, 'Delicate puff rounds topped with pizza sauce, chicken and melty cheese for a perfect snack', 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop');
+            addMenuItem('hot-snacks', 'Paneer Chettinad Roll', 50, 'Spiced and grilled paneer cubes, onion wrapped in a soft bun for a flavorful experience', 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=600&h=400&fit=crop');
+
+            // CREAMY BUNS (3 items)
+            addMenuItem('creamy-buns', 'Bun Chocolate', 35, 'Soft and airy chocolate buns with a yummy texture and unbelievable flavour', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&h=400&fit=crop');
+            addMenuItem('creamy-buns', 'Bun Crunchy Butterscotch', 35, 'Craving a caramel dream? Here is your butterscotchy delight with a crunchy twist', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&h=400&fit=crop');
+            addMenuItem('creamy-buns', 'Cream Bun', 30, 'Cream bun is creamy white interior, golden crust and soft, easily sliceable texture', 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=600&h=400&fit=crop');
+
+            // DESSERTS (6 items)
+            addMenuItem('desserts', 'Lava Chocolate', 120, 'Sinfully delicious dessert with oodles of liquid chocolate beneath a soft layer of cake', 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=400&fit=crop');
+            addMenuItem('desserts', 'Mousse Strawberry Delite', 150, 'Amazingly light & fluffy strawberry mousse with a burst of strawberry flavour', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop');
+            addMenuItem('desserts', 'Mousse Blueberry Fantasy', 150, 'Mousse is like a dream dessert, a soft, sweet cloud of scrumptious creaminess with blueberry', 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=400&fit=crop');
+            addMenuItem('desserts', 'Milk Cake [1 Piece]', 40, 'Alia Bhatt favourite milk cake vanilla sponge base that is soaked in three types of milk', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+            addMenuItem('desserts', 'Hazelnut Kunafa [1 Piece]', 80, 'Crunchy Arabic dessert made with kunafa dough with a super hazelnut filling where every bite is heavenly', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop');
+            addMenuItem('desserts', 'Cold Coffee', 60, 'Cold version of your favourite coffee, that is brewed specifically to be served chilled', 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=600&h=400&fit=crop');
+
+            // BROWNIES (1 item)
+            addMenuItem('brownies', 'Classic Chocolate Brownie', 50, 'Our classic Brownie is a gooey chocolate loaded dense fudgy brownie that melts in your mouth', 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=400&fit=crop');
+
+            // BREADS (1 item)
+            addMenuItem('breads', 'Mini Masala Bread', 25, 'An extremely delicious bread flavoured with fresh Indian herbs like coriander and mint, perfect for breakfast', 'https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop');
+
+            // PASTRIES (5 items)
+            addMenuItem('pastries', 'Black Forest Pastry', 45, 'Soft chocolate sponge layers soaked in cherry filling, stabilised whipped cream and dark chocolate shavings', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+            addMenuItem('pastries', 'White Forest Pastry', 45, 'A heavenly blend of velvety vanilla goodness & dreamy white chocolate', 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop');
+            addMenuItem('pastries', 'Rasamalai Pastry', 50, 'Indulge in the exquisite taste of Rasamalai with our premium ingredients. Delicate, flavourful, and creamy', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+            addMenuItem('pastries', 'Butterscotch Pastry', 45, 'A moist butterscotch pastry made with vanilla cream, butterscotch sauce, crunchy butterscotch nuts', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+            addMenuItem('pastries', 'Blueberry Gateaux Pastry', 50, 'A sponge cake made with blueberry fillings topped with cream and blueberry sauce', 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=600&h=400&fit=crop');
+
+            // DRINKS (2 items)
+            addMenuItem('drinks', 'Aquafina Water (500 ml)', 20, 'Aquafina Water in 500 ml PET bottle', 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=600&h=400&fit=crop');
+            addMenuItem('drinks', 'Aquafina Water (1.0 L)', 30, 'Aquafina Water in 1.0 L PET bottle', 'https://images.unsplash.com/photo-1523362628745-0c100150b504?w=600&h=400&fit=crop');
+
+            // PIECE CAKES (1 item)
+            addMenuItem('piece-cakes', 'Mawa Cake', 40, 'This signature eggless cake is made using a traditional Parsi recipe and contains rich mawa', 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&h=400&fit=crop');
+
+            // SWEETS (1 item)
+            addMenuItem('sweets', 'Kesar Rasmalai', 60, 'Indulge in the royal charm of Kesar rasamalai soft, creamy and kissed with saffron', 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=600&h=400&fit=crop');
+            
+            // Update category counts in the DOM
+            updateCategoryCounts();
+        }
+
+
+        // Function to display menu items
+        function displayMenuItems(category = 'all') {
+            const menuItemsContainer = document.getElementById('menuItems');
+            menuItemsContainer.innerHTML = '';
+
+            let itemsToShow = [];
+            
+            if (category === 'all') {
+                // Show all items from all categories
+                Object.keys(menuData).forEach(cat => {
+                    itemsToShow = itemsToShow.concat(menuData[cat].map(item => ({
+                        ...item,
+                        category: cat
+                    })));
+                });
+            } else if (menuData[category]) {
+                itemsToShow = menuData[category].map(item => ({
+                    ...item,
+                    category: category
+                }));
+            }
+
+            if (itemsToShow.length === 0) {
+                menuItemsContainer.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-medium);">
+                        <p>No menu items available for this category.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            itemsToShow.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                menuItem.dataset.category = item.category;
+                
+                // Construct fallback placeholder SVG with item name
+                const placeholderSvg = `data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%23F5E6D3"/%3E%3Ctext x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%238B4513" font-family="Arial" font-size="16"%3E${encodeURIComponent(item.name)}%3C/text%3E%3C/svg%3E`;
+                
+                menuItem.innerHTML = `
+                    <img src="${item.image || placeholderSvg}" alt="${item.name}" class="menu-item-image" loading="lazy" onerror="this.onerror=null; this.src='${placeholderSvg}'; this.style.objectFit='contain';">
+                    <div class="menu-item-content">
+                        <h3 class="menu-item-name">${item.name}</h3>
+                        <p class="menu-item-price">₹${item.price}</p>
+                        ${item.description ? `<p class="menu-item-description">${item.description}</p>` : ''}
+                    </div>
+                `;
+                
+                menuItemsContainer.appendChild(menuItem);
+            });
+        }
+
+        // ============================================
+        // Gallery Data Structure
+        // ============================================
+        const galleryData = [];
+
+        // Function to add gallery images
+        function addGalleryImage(imageSrc, category = 'all', alt = '') {
+            galleryData.push({
+                src: imageSrc,
+                category: category,
+                alt: alt || 'Bakery Product'
+            });
+        }
+
+        // ============================================
+        // Initialize Gallery Images
+        // ============================================
+        function initializeGalleryImages() {
+            // Add gallery images for each category
+            addGalleryImage('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop', 'cakes', 'Black Forest Cake');
+            addGalleryImage('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=600&fit=crop', 'cakes', 'White Forest Cake');
+            addGalleryImage('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=600&fit=crop', 'cakes', 'Blueberry Gateau Cake');
+            addGalleryImage('https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=800&h=600&fit=crop', 'cakes', 'Blackcurrant Burst Cake');
+            addGalleryImage('https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=800&h=600&fit=crop', 'cakes', 'Strawberry Delight Cake');
+            addGalleryImage('https://images.unsplash.com/photo-1614707267537-b85aaf00c4b7?w=800&h=600&fit=crop', 'cakes', 'Red Velvet Cake');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=800&h=600&fit=crop', 'hot-snacks', 'Puff Egg Keema');
+            addGalleryImage('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&h=600&fit=crop', 'hot-snacks', 'Pizza Puff');
+            addGalleryImage('https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&h=600&fit=crop', 'hot-snacks', 'Paneer Roll');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&h=600&fit=crop', 'creamy-buns', 'Creamy Buns');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=600&fit=crop', 'desserts', 'Chocolate Lava');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&h=600&fit=crop', 'brownies', 'Classic Chocolate Brownie');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800&h=600&fit=crop', 'breads', 'Masala Bread');
+            
+            addGalleryImage('https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=800&h=600&fit=crop', 'pastries', 'Black Forest Pastry');
+            addGalleryImage('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&h=600&fit=crop', 'pastries', 'White Forest Pastry');
+        }
+
+
+        // Function to display gallery
+        function displayGallery(filter = 'all') {
+            const galleryGrid = document.getElementById('galleryGrid');
+            galleryGrid.innerHTML = '';
+
+            const imagesToShow = filter === 'all' 
+                ? galleryData 
+                : galleryData.filter(img => img.category === filter);
+
+            if (imagesToShow.length === 0) {
+                galleryGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: var(--text-medium);">
+                        <p>No gallery images available for this category.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            imagesToShow.forEach((image) => {
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item';
+                galleryItem.dataset.category = image.category;
+                galleryItem.dataset.src = image.src;
+                
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.alt = image.alt;
+                img.loading = 'lazy';
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    const placeholder = document.createElement('div');
+                    placeholder.style.cssText = 'width: 100%; height: 100%; background: var(--bg-cream); display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-weight: bold; padding: 10px; text-align: center;';
+                    placeholder.textContent = image.alt || 'Image';
+                    galleryItem.appendChild(placeholder);
+                };
+                
+                galleryItem.appendChild(img);
+                galleryGrid.appendChild(galleryItem);
+            });
+        }
+
+        // ============================================
+        // Lightbox Functionality
+        // ============================================
+        let currentImageIndex = 0;
+        let currentGalleryImages = [];
+
+        function openLightbox(clickedImageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            
+            // Get all currently visible gallery items' sources
+            const visibleItems = Array.from(document.querySelectorAll('.gallery-item'));
+            currentGalleryImages = visibleItems.map(item => item.dataset.src);
+            
+            if (currentGalleryImages.length === 0) return;
+            
+            // Find the index of the clicked image
+            currentImageIndex = currentGalleryImages.indexOf(clickedImageSrc);
+            
+            if (currentImageIndex === -1) {
+                currentImageIndex = 0;
+            }
+            
+            lightboxImage.src = currentGalleryImages[currentImageIndex];
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function showNextImage() {
+            if (currentGalleryImages.length === 0) return;
+            currentImageIndex = (currentImageIndex + 1) % currentGalleryImages.length;
+            document.getElementById('lightboxImage').src = currentGalleryImages[currentImageIndex];
+        }
+
+        function showPrevImage() {
+            if (currentGalleryImages.length === 0) return;
+            currentImageIndex = (currentImageIndex - 1 + currentGalleryImages.length) % currentGalleryImages.length;
+            document.getElementById('lightboxImage').src = currentGalleryImages[currentImageIndex];
+        }
+
+        // ============================================
+        // Navigation & Smooth Scrolling
+        // ============================================
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        // Adjust offset to account for sticky navbar height (~70px)
+                        const offsetTop = target.offsetTop - 80; 
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        const navMenu = document.querySelector('.nav-menu');
+                        navMenu.classList.remove('active');
+                        document.querySelector('.mobile-menu-toggle').classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // Mobile Menu Toggle
+        // ============================================
+        function initMobileMenu() {
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', () => {
+                    navMenu.classList.toggle('active');
+                    mobileMenuToggle.classList.toggle('active');
+                });
+            }
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (navMenu.classList.contains('active') && !navMenu.contains(e.target) && !mobileMenuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                }
+            });
+        }
+
+        // ============================================
+        // Menu Filter Functionality
+        // ============================================
+        function initMenuFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    const category = btn.dataset.category;
+                    displayMenuItems(category);
+                    
+                    // Scroll to menu section
+                    const menuSection = document.getElementById('menu');
+                    if (menuSection) {
+                        const offsetTop = menuSection.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Make category cards clickable
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const category = card.dataset.category;
+                    // Find and click corresponding filter button
+                    const correspondingBtn = document.querySelector(`.filter-btn[data-category="${category}"]`);
+                    if (correspondingBtn) {
+                        correspondingBtn.click();
+                    }
+                });
+            });
+        }
+
+        // ============================================
+        // Gallery Filter Functionality
+        // ============================================
+        function initGalleryFilters() {
+            const galleryFilterButtons = document.querySelectorAll('.gallery-filter-btn');
+            
+            galleryFilterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    galleryFilterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const filter = btn.dataset.filter;
+                    displayGallery(filter);
+                });
+            });
+        }
+
+        // ============================================
+        // Initialize Gallery Click Events
+        // ============================================
+        function initGalleryClickEvents() {
+            document.addEventListener('click', (e) => {
+                const galleryItem = e.target.closest('.gallery-item');
+                if (galleryItem) {
+                    e.preventDefault(); 
+                    const imageSrc = galleryItem.dataset.src;
+                    if (imageSrc) {
+                        openLightbox(imageSrc);
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // Initialize Lightbox Events
+        // ============================================
+        function initLightboxEvents() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxNext = document.querySelector('.lightbox-next');
+            const lightboxPrev = document.querySelector('.lightbox-prev');
+            
+            if (lightboxClose) {
+                lightboxClose.addEventListener('click', closeLightbox);
+            }
+            
+            if (lightboxNext) {
+                lightboxNext.addEventListener('click', showNextImage);
+            }
+            
+            if (lightboxPrev) {
+                lightboxPrev.addEventListener('click', showPrevImage);
+            }
+            
+            // Close on background click
+            if (lightbox) {
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) {
+                        closeLightbox();
+                    }
+                });
+            }
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (lightbox && lightbox.classList.contains('active')) {
+                    if (e.key === 'Escape') {
+                        closeLightbox();
+                    } else if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    }
+                }
+            });
+        }
+
+        // ============================================
+        // Initialize Everything on DOM Load
+        // ============================================
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize menu items and gallery images
+            initializeMenuItems();
+            initializeGalleryImages();
+            
+            // Initialize all features
+            initSmoothScrolling();
+            initMobileMenu();
+            initMenuFilters();
+            initGalleryFilters();
+            initGalleryClickEvents();
+            initLightboxEvents();
+            
+            // Display initial menu and gallery
+            displayMenuItems('all');
+            displayGallery('all');
+            
+            // Add scroll effect to navbar
+            const navbar = document.querySelector('.navbar');
+            
+            window.addEventListener('scroll', () => {
+                const currentScroll = window.pageYOffset;
+                
+                if (currentScroll > 100) {
+                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+                } else {
+                    navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
